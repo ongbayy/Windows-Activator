@@ -1,4 +1,4 @@
-# Windows Activator v1.0 - "OngbayActivate" (FINAL)
+# Windows Activator
 # Branding: Made By Ongbay
 # Python 3.9+ required
 # Run as Administrator
@@ -11,11 +11,9 @@ import os
 import sys
 from tkinter import messagebox
 
-# --- Appearance ---
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 
-# --- Activation Functions ---
 def is_admin():
     try:
         return os.getuid() == 0
@@ -32,7 +30,6 @@ def run_cmd(cmd):
 
 def check_activation_status(log_callback):
     log_callback("[*] Checking Windows activation status...")
-    # Run slmgr /xpr and let the Windows Script Host popup appear
     subprocess.Popen("slmgr /xpr", shell=True)
     return True, "✅ Check the popup window for activation status."
 
@@ -40,7 +37,6 @@ def activate_windows(version, log_callback):
     log_callback("[*] Starting Windows activation...")
     log_callback(f"[*] Version: {version}")
     
-    # Edition to KMS client key mapping
     keys = {
         "Windows 10/11 Home": "TX9XD-98N7V-6WMQ6-BX7FG-H8Q99",
         "Windows 10/11 Home N": "3KHY7-WNT83-DGQKR-F7HPR-844BM",
@@ -61,7 +57,6 @@ def activate_windows(version, log_callback):
         log_callback("[!] Unknown Windows version.")
         return False
     
-    # Run activation steps
     steps = [
         (f'slmgr /ipk {product_key}', "Installing product key..."),
         ('slmgr /skms kms8.msguides.com', "Setting KMS server..."),
@@ -79,7 +74,6 @@ def activate_windows(version, log_callback):
     log_callback("[✓] Activation completed!")
     return True
 
-# --- GUI ---
 class ActivatorGUI:
     def __init__(self):
         self.window = ctk.CTk()
@@ -90,7 +84,6 @@ class ActivatorGUI:
         self._build_ui()
         self._style_ui()
         
-        # Check admin
         if not is_admin():
             messagebox.showwarning("Admin Required", "Please run as Administrator for full functionality.")
     
@@ -114,7 +107,6 @@ class ActivatorGUI:
         main = ctk.CTkFrame(self.window, fg_color="transparent")
         main.pack(pady=10, padx=20, fill="both", expand=True)
 
-        # Windows Version Selection
         ctk.CTkLabel(main, text="Windows Version:", font=("Consolas", 14)).grid(row=0, column=0, padx=5, pady=5, sticky="e")
         
         versions = [
@@ -136,7 +128,6 @@ class ActivatorGUI:
         self.version_combo.grid(row=0, column=1, padx=5, pady=5, sticky="w")
         self.version_combo.set("Windows 10/11 Pro")
 
-        # Check Status Button
         self.check_btn = ctk.CTkButton(
             main,
             text="🔍 Check Activation Status",
@@ -147,7 +138,6 @@ class ActivatorGUI:
         )
         self.check_btn.grid(row=1, column=1, padx=5, pady=5, sticky="w")
 
-        # Status Display
         self.status_frame = ctk.CTkFrame(main, fg_color="#1A1A2E", corner_radius=8)
         self.status_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=5, sticky="ew")
         
@@ -159,7 +149,6 @@ class ActivatorGUI:
         )
         self.status_label.pack(pady=10, padx=10)
 
-        # Activate Button
         self.activate_btn = ctk.CTkButton(
             main, 
             text="🔥 ACTIVATE WINDOWS", 
@@ -172,7 +161,6 @@ class ActivatorGUI:
         )
         self.activate_btn.grid(row=3, column=0, columnspan=2, pady=15)
 
-        # Log area
         log_frame = ctk.CTkFrame(main)
         log_frame.grid(row=4, column=0, columnspan=2, pady=10, padx=5, sticky="nsew")
         main.grid_rowconfigure(4, weight=1)
@@ -182,12 +170,10 @@ class ActivatorGUI:
         self.log_text = ctk.CTkTextbox(log_frame, font=("Consolas", 11), height=200)
         self.log_text.pack(fill="both", expand=True)
 
-        # Info
         info_text = "⚠️ This tool uses KMS activation. Internet connection required.\n"
         info_text += "📌 Works on Windows 10 and Windows 11 (all editions)."
         ctk.CTkLabel(main, text=info_text, font=("Consolas", 11), text_color="#888888", justify="left").grid(row=5, column=0, columnspan=2, pady=10)
 
-        # Footer
         footer = ctk.CTkLabel(self.window, text="Made By Ongbay", font=("Consolas", 10), text_color="#FF6600")
         footer.pack(side="bottom", pady=5)
 
@@ -239,7 +225,6 @@ class ActivatorGUI:
             self.status_label.configure(text="❌ Activation failed. Check log.", text_color="#FF4444")
             self.activate_btn.configure(text="🔥 RETRY", fg_color="#CC3333")
 
-# --- Main ---
 if __name__ == "__main__":
     app = ActivatorGUI()
     app.window.mainloop()
