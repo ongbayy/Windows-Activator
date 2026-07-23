@@ -57,7 +57,7 @@ A simple, lightweight Windows 10/11 activator with a clean dark GUI. Supports al
 ## Installation (Source)
 
 ```bash
-git clone https://github.com/yourusername/windows-activator.git
+git clone https://github.com/ongbayy/Windows-Activator.git
 cd windows-activator
 pip install customtkinter
 python activator.py
